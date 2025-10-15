@@ -1,4 +1,3 @@
-#include "hm/hasher_collection/benchmark_hasher.h"
 #include "hm/types.h"
 #include <gtest/gtest.h>
 
@@ -9,7 +8,6 @@
 #include <hm/hash.h>
 
 #include <hm/hasher_collection/trace_hasher.h>
-#include <memory>
 #include <span>
 
 TEST (ConceptTest, Test)
