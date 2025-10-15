@@ -28,16 +28,26 @@ file(GLOB_RECURSE SRCS_CXX "src/*.cc")
 
 set(TEST_BINARY ${PROJECT_NAME}_suit)
 
-set(OUTPUT_LIBRARY ${PROJECT_NAME})
+add_library(${PROJECT_NAME}_shared SHARED ${SRCS_CXX})
+set_target_properties(${PROJECT_NAME}_shared PROPERTIES
+  OUTPUT_NAME ${PROJECT_NAME}
+  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
 
-add_library(${OUTPUT_LIBRARY} SHARED ${SRCS_CXX})
+add_library(${PROJECT_NAME}_static STATIC ${SRCS_CXX})
+set_target_properties(${PROJECT_NAME}_static PROPERTIES
+  OUTPUT_NAME ${PROJECT_NAME}
+  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
 
 add_executable(${TEST_BINARY} ${TESTS_SRCS_CXX})
 
 target_link_libraries(${TEST_BINARY}
   GTest::gtest
   GTest::gtest_main
-  ${OUTPUT_LIBRARY}
+  ${PROJECT_NAME}_shared
 )
 
 if(UNIX)
