@@ -1,0 +1,2 @@
+# hm
+C++ Hashing library
